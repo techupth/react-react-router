@@ -11,7 +11,7 @@ test("button click redirects to edit product page", () => {
     );
 
     const code = HomePage.toString()
-    const expectedText = 'product/edit/${'
+    const expectedText = 'product/edit/${product.id}'
 
     expect(code).toContain(expectedText)
 });

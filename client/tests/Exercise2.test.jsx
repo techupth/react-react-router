@@ -10,7 +10,7 @@ test('button click redirects to view product page', () => {
     );
 
     const code = HomePage.toString()
-    const expectedText = 'product/view/${'
+    const expectedText = 'product/view/${product.id}'
 
     expect(code).toContain(expectedText)
 });
