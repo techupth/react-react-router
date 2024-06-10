@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 
 function ViewProductPage() {
   const [name, setName] = useState("");
@@ -8,6 +8,7 @@ function ViewProductPage() {
   const [price, setPrice] = useState("");
   const [description, setDescription] = useState("");
   const param = useParams();
+  const navigate = useNavigate();
 
   const getProducts = async () => {
     const result = await axios.get(
@@ -34,7 +35,13 @@ function ViewProductPage() {
         <h3>Price: {price}</h3>
         <p>{description}</p>
       </div>
-      <button>Back to Home</button>
+      <button
+        onClick={() => {
+          navigate("/");
+        }}
+      >
+        Back to Home
+      </button>
     </div>
   );
 }
