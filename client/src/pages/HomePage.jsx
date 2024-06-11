@@ -7,6 +7,9 @@ function HomePage() {
   const [isError, setIsError] = useState(null);
   const [isLoading, setIsLoading] = useState(null);
 
+  const params = useParams();
+  const navigate = useNavigate();
+
   const getProducts = async () => {
     try {
       setIsError(false);
@@ -19,12 +22,14 @@ function HomePage() {
     }
   };
 
+  const deleteProduct = async (id) => {
+    await axios.delete(`http://localhost:4001/products/${id}`);
+    getProducts();
+  };
+
   useEffect(() => {
     getProducts();
   }, []);
-
-  const params = useParams();
-  const navigate = useNavigate();
 
   return (
     <div>
@@ -40,7 +45,7 @@ function HomePage() {
             <div key={index} className="product">
               <div className="product-preview">
                 <img
-                  src="https://via.placeholder.com/250/250"
+                  src={product.image}
                   alt="some product"
                   width="250"
                   height="250"
@@ -57,11 +62,21 @@ function HomePage() {
                   >
                     View
                   </button>
-                  <button className="edit-button">Edit</button>
+                  <button
+                    className="edit-button"
+                    onClick={() => navigate(`/product/edit/${product.id}`)}
+                  >
+                    Edit
+                  </button>
                 </div>
               </div>
 
-              <button className="delete-button">x</button>
+              <button
+                className="delete-button"
+                onClick={() => deleteProduct(product.id)}
+              >
+                x
+              </button>
             </div>
           );
         })}
